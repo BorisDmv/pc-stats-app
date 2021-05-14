@@ -5,11 +5,21 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "electron:run": "cross-env VUELECTRO_ENV=run electron app/electron-main.js",
+    "electron:serve": "cross-env VUELECTRO_ENV=serve vuelectro serve",
+    "electron:serve:file": "vuelectro clean && vue-cli-service build --mode=development && vuelectro compilemain && cross-env VUELECTRO_ENV=devprod electron app/electron-main.js",
+    "electron:prod": "vuelectro clean && vue-cli-service build && vuelectro compilemain && cross-env VUELECTRO_ENV=prod NODE_ENV=production electron app/electron-main.js",
+    "electron:compile:main": "vuelectro compilemain",
+    "electron:compile:renderer": "vue-cli-service build --mode=development",
+    "electron:build": "vuelectro build",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.8"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -18,7 +28,11 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "vuelectro": "^1.2.3",
+    "cross-env": "7.0.3",
+    "electron": "12.0.7",
+    "electron-devtools-installer": "3.1.1"
   },
   "eslintConfig": {
     "root": true,
@@ -38,5 +52,6 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "main": "app/electron-main.js"
 }

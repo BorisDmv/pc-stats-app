@@ -1,24 +1,19 @@
-# electron-test
+# electron-app with vuejs integration using vuelectro
 
-## Project setup
+## Dependencies List
+Using vuejs cli
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+ npm install -g @vue/cli
+ vue create {appname}
 ```
 
-### Compiles and minifies for production
+Installing electron for vuejs in dev-dependencies and then init (vuelectro) 
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+ npm install -D vuelectro
+ npx vuelectro init 
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### To open for dev
+```
+npm run electron:serve 
+```
