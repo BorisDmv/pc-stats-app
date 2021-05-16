@@ -1,29 +1,85 @@
 <template>
-  <router-link to="/">Go to Home</router-link>
-  
-  <router-link to="/about">Go to About</router-link>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <div class="mainApp">
 
-  <router-view msg="Main comp" msg2="About comp">
+    <div class="topBar">
+      <div class="titleBar">
+        <button @click="SideMenu_Btn()" class="toggleButton"></button>
+        <div class="title">
+          PC STATS APP
+        </div>
+      </div>
 
-  </router-view>
+      <div class="titleBarBtns">
+        <button class="topBtn minimizeBtn" @click="MinimizeApp()"></button>
+        <button  class="topBtn maximizeBtn" @click="MaximizeApp()"></button>
+        <button class="topBtn closeBtn" @click="CloseApp()"></button>
+      </div>
+
+    </div>
+
+    <div class="contentArea">
+      <div id="mySidebar" class="leftMenu" :style="{width: sideMenuWidth + 'px'}">
+        <ul :class="{hideBtns: isHidden}">
+          <img src="./assets/stats.svg" class="sideBtnImg"><router-link class="sideBtn" to="/"><li>PC Monitoring</li></router-link>
+          <img src="./assets/computer.svg" class="sideBtnImg"><router-link class="sideBtn" to="/pcstats"><li>PC Stats</li></router-link>
+          <img src="./assets/info.svg" class="sideBtnImg"><router-link class="sideBtn" to="/about"><li>About</li></router-link>
+        </ul>
+      </div>
+
+      <div class="contentComp">
+      <router-view></router-view>
+      </div>
+    </div>
+
+  </div>
 
 </template>
 
 <script>
-//import Home from './components/Home.vue'
+import {ipcRenderer} from 'electron'
+const ipc = ipcRenderer
 
 export default {
   name: 'App',
-  components: {
-    //Home
+  data() {
+    return{
+      sideMenuShown: true,
+      sideMenuWidth: 280,
+      isHidden: false
+    }
+  },
+  methods: {
+    SideMenu_Btn() {
+      if(this.sideMenuShown){
+        this.sideMenuWidth = 0;
+        this,this.sideMenuShown = false;
+        this.isHidden = true;
+        //console.log('menu clicked');
+      }
+      else{
+        this.sideMenuWidth = 280;
+        this.sideMenuShown = true;
+        this.isHidden = false;
+      }
+    },
+    CloseApp(){
+      ipc.send('closeApp')
+    },
+    MaximizeApp(){
+      ipc.send('maximizeApp')
+    },
+    MinimizeApp(){
+      ipc.send('minimizeApp')
+    }
   }
 }
 </script>
 
 <style>
-html{
-  background: white;
+html, body{
+  background: #15151E;
+  margin: 0;
+  height: 100%;
 }
 
 #app {
@@ -31,7 +87,144 @@ html{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-size: 1.2em;
+  color: #949AA7;
+  height: 100%;
 }
+
+.mainApp{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mainApp > .topBar{
+  display: flex;
+  flex-direction: row;
+  widows: 100%;
+  height: 40px;
+  background: #080814;
+  -webkit-user-select: none;
+}
+
+.topBar > .titleBar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.titleBar > .toggleButton{
+  width: 45px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-image: url('./assets/menu-icon.svg');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.titleBar > .title{
+  margin-left: 10px;
+  width: 100%;
+  line-height: 30px;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  -webkit-app-region: drag;
+}
+
+.topBar > .titleBarBtns{
+  display: flex;
+  flex-direction: row;
+  width: 120px;
+  height: 40px;
+}
+
+.titleBarBtns > .topBtn{
+  width: 40px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+
+
+.titleBarBtns > .minimizeBtn{
+  background-image: url('./assets/minimize.svg');
+}
+
+.titleBarBtns > .maximizeBtn{
+  background-image: url('./assets/maximize.svg');
+}
+
+.titleBarBtns > .closeBtn{
+  background-image: url('./assets/close.svg');
+}
+
+.mainApp > .contentArea{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.contentArea > .leftMenu{
+  width: 280px;
+  height: 100%;
+  background: #080814;
+  transition: 0.4s;
+}
+
+.sideBtnImg{
+  width: 20px; 
+  float: left;
+  margin-right: 10px; 
+}
+
+ul{
+  list-style-type: none;
+  padding-left: 20px;
+  text-align: left;
+  opacity: 1;
+  transition: 0.2s;
+  transition-delay: 0.2s;
+}
+
+.hideBtns{
+  opacity: 0;
+  transition: 0.1s;
+}
+
+li{
+  margin-bottom: 10px;
+}
+
+.sideBtn{
+  color: #949AA7;
+  text-decoration: none;
+  transition: 0.1s;
+}
+
+.sideBtn:hover{
+  color: #48DEC8;
+}
+
+.contentArea > .contentComp{
+  width: 100%;
+  height: 100%;
+}
+
 </style>

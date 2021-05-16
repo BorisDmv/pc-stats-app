@@ -2,11 +2,13 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 
-import Home from './components/Home.vue'
+import PCMonitor from './components/PCMonitor.vue'
+import PCStats from './components/PCStats'
 import About from './components/About.vue'
 
 const routes = [
-    { path: '/', component: Home },
+    { path: '/', component: PCMonitor },
+    { path: '/pcstats', component: PCStats },
     { path: '/about', component: About },
 ]
 

@@ -5,8 +5,9 @@ process.on('uncaughtException', (error => {
     console.error(error);
 }));
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const ipc = ipcMain
 
 // Get and switch Vuelectro build type
 process.env.VUELECTRO_ENV = process.env.VUELECTRO_ENV || 'build';
@@ -36,8 +37,11 @@ switch (process.env.VUELECTRO_ENV) {
 
 function createWindow () {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1100,
+        height: 680,
+        minWidth: 1100,
+        minHeight: 560,
+        frame: false,
         show: false,
         webPreferences: {
             nodeIntegration: true,
@@ -56,6 +60,24 @@ function createWindow () {
         win.show();
         if (isDev) win.webContents.openDevTools(); // Open dev tools on development mode
     });
+
+    //Closing the App
+    ipc.on('closeApp', () => {
+        win.close()
+    })
+
+    //Maximizing the App
+    ipc.on('maximizeApp', () => {
+        if(win.isMaximized())
+            win.restore()
+        else
+            win.maximize()
+    })
+
+    //Minimizing the App
+    ipc.on('minimizeApp', () => {
+        win.minimize()
+    })
 }
 
 app.on('ready', async () => {
