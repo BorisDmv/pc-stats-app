@@ -1,5 +1,10 @@
 <template>
   <div class="pcstats">
+    <h1>Your PC STATS</h1>
+
+    <p class="statsTitle">OS</p>
+    <p>{{osPlatform}}</p>
+
     <p class="statsTitle">CPU Model</p>
     <p>{{cpuModel}}</p>
 
@@ -13,6 +18,7 @@
 </template>
 
 <script>
+var os = require('os')
 var osu = require('node-os-utils')
 var cpu = osu.cpu
 
@@ -23,21 +29,30 @@ export default {
   },
   data() {
     return{
+      netType: '',
+      osPlatform: '',
       cpuModel: '',
       cpuCores: '',
       totalRam: ''
     }
   },
   methods: {
+    NetType() {
+      //this.osPlatform = os.networkInterfaces()
+      //console.log(os.tmpdir())
+    },
+    OSPlatform() {
+      this.osPlatform = os.version() + ' ' + '(' + os.platform() + ')'
+    },
     CpuModel() {
       var model = cpu.model()
       this.cpuModel = model
-      console.log('cpu model ' + model)
+      //console.log('cpu model ' + model)
     },
     CpuCores() {
       var count = cpu.count()
       this.cpuCores = count
-      console.log('cpu cores ' + count)
+      //console.log('cpu cores ' + count)
     },
     TotalMem(){
       var mem = osu.mem
@@ -45,11 +60,13 @@ export default {
       mem.info()
       .then(info => {
         this.totalRam = info.totalMemMb.toString().substring(0, 2)
-        console.log(Math.round(info.totalMemMb))
+        //console.log(Math.round(info.totalMemMb))
       })
     }
   },
   mounted() {
+    //this.NetType()
+    this.OSPlatform()
     this.CpuModel()
     this.CpuCores()
     this.TotalMem()

@@ -78,7 +78,13 @@ function createWindow () {
     ipc.on('minimizeApp', () => {
         win.minimize()
     })
+
+    app.on('browser-window-created',function(e,window) {
+        window.setMenu(null);
+    });
+    
 }
+
 
 app.on('ready', async () => {
     if (isDev) {

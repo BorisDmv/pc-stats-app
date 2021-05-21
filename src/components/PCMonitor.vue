@@ -9,11 +9,16 @@
       <span class="label">Free Mem (%)</span>
       <span id="mem">{{memUsage}}</span>
     </div>
+    <div class="box">
+      <span class="label">PC Uptime</span>
+      <span id="mem">{{uptime}}</span>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
+var os = require('os')
 var osu = require('node-os-utils')
 var cpu = osu.cpu
 
@@ -26,6 +31,7 @@ export default {
     return{
       cpuUsage: 0,
       memUsage: 0,
+      uptime: ''
     }
   },
   methods: {
@@ -43,6 +49,25 @@ export default {
         this.memUsage = info.freeMemPercentage
         //console.log(info.freeMemPercentage)
       })
+    },
+    PCUptime(){
+      var n = os.uptime()
+
+      var day =parseInt( n / (24 * 3600));
+ 
+        n = n % (24 * 3600);
+        var hour = parseInt(n / 3600);
+ 
+        n %= 3600;
+        var minutes = n / 60;
+ 
+        n %= 60;
+        var seconds = n;
+
+
+        this.uptime =  day + " " + "days " + hour + " " + "hours "
+                + minutes.toFixed() + " " + "minutes " +
+                seconds.toFixed() + " " + "seconds "
     }
   },
   mounted() {
@@ -52,6 +77,7 @@ export default {
     setInterval(() => {
       this.CpuUsage()
       this.MemoryUsage()
+      this.PCUptime()
     }, 2000)
   }
 }

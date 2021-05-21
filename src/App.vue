@@ -22,11 +22,12 @@
         <ul :class="{hideBtns: isHidden}">
           <img src="./assets/stats.svg" class="sideBtnImg"><router-link class="sideBtn" to="/"><li>PC Monitoring</li></router-link>
           <img src="./assets/computer.svg" class="sideBtnImg"><router-link class="sideBtn" to="/pcstats"><li>PC Stats</li></router-link>
+          <img src="./assets/garbage-can.svg" class="sideBtnImg"><router-link class="sideBtn" to="/pcclean"><li>PC Clean</li></router-link>
           <img src="./assets/info.svg" class="sideBtnImg"><router-link class="sideBtn" to="/about"><li>About</li></router-link>
         </ul>
       </div>
 
-      <div class="contentComp">
+      <div class="contentComp" v-bind:style="{ 'margin-left': this.contentCompMargin + 'px'}">
       <router-view></router-view>
       </div>
     </div>
@@ -45,21 +46,23 @@ export default {
     return{
       sideMenuShown: true,
       sideMenuWidth: 280,
+      contentCompMargin: 280,
       isHidden: false
     }
   },
   methods: {
     SideMenu_Btn() {
       if(this.sideMenuShown){
-        this.sideMenuWidth = 0;
-        this,this.sideMenuShown = false;
-        this.isHidden = true;
-        //console.log('menu clicked');
+        this.sideMenuWidth = 0
+        this,this.sideMenuShown = false
+        this.isHidden = true
+        this.contentCompMargin = 0
       }
       else{
-        this.sideMenuWidth = 280;
-        this.sideMenuShown = true;
-        this.isHidden = false;
+        this.sideMenuWidth = 280
+        this.sideMenuShown = true
+        this.isHidden = false
+        this.contentCompMargin = 280
       }
     },
     CloseApp(){
@@ -92,6 +95,21 @@ html, body{
   height: 100%;
 }
 
+.btnStyle{
+  background: #2C5E5F;
+  padding: 12px 16px 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #48DEC8;
+  text-decoration: none;
+  transition: 0.5s ease-out;
+  cursor: pointer;
+}
+.btnStyle:hover{
+  background: #377d7e;
+  transform: scale(0.95);
+}
+
 .mainApp{
   display: flex;
   flex-direction: column;
@@ -100,6 +118,7 @@ html, body{
   height: 100%;
   overflow: hidden;
 }
+
 
 .mainApp > .topBar{
   display: flex;
@@ -174,14 +193,21 @@ html, body{
   background-image: url('./assets/close.svg');
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+
 .mainApp > .contentArea{
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
 }
 
 .contentArea > .leftMenu{
+  position: fixed;
   width: 280px;
   height: 100%;
   background: #080814;
@@ -225,6 +251,7 @@ li{
 .contentArea > .contentComp{
   width: 100%;
   height: 100%;
+  transition: 0.4s;
 }
 
 </style>
