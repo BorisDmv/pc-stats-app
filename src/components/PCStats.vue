@@ -21,6 +21,7 @@
 var os = require('os')
 var osu = require('node-os-utils')
 var cpu = osu.cpu
+import { getGPUTier } from 'detect-gpu';
 
 export default {
   name: 'PCStats',
@@ -37,9 +38,9 @@ export default {
     }
   },
   methods: {
-    NetType() {
-      //this.osPlatform = os.networkInterfaces()
-      //console.log(os.tmpdir())
+    async ShowGPU() {
+      const gpuTier = await getGPUTier();
+      console.log(gpuTier)
     },
     OSPlatform() {
       this.osPlatform = os.version() + ' ' + '(' + os.platform() + ')'
@@ -65,7 +66,7 @@ export default {
     }
   },
   mounted() {
-    //this.NetType()
+    this.ShowGPU()
     this.OSPlatform()
     this.CpuModel()
     this.CpuCores()
