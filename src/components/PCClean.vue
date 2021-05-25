@@ -7,7 +7,7 @@
 
     <h1>Remove cache files with one click</h1>
 
-    <p class="title">It will clean your default directory for temporary files</p>
+    <p class="title">It will clean your default directory with temporary files</p>
 
     <p>Folder to be cleaned: {{tempDir}}</p>
     <p>Folder size: {{tempDirSize}}</p>

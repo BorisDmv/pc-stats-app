@@ -20,10 +20,10 @@
     <div class="contentArea">
       <div id="mySidebar" class="leftMenu" :style="{width: sideMenuWidth + 'px'}">
         <ul :class="{hideBtns: isHidden}">
-          <img src="./assets/stats.svg" class="sideBtnImg"><router-link class="sideBtn" to="/"><li>PC Monitoring</li></router-link>
-          <img src="./assets/computer.svg" class="sideBtnImg"><router-link class="sideBtn" to="/pcstats"><li>PC Stats</li></router-link>
-          <img src="./assets/garbage-can.svg" class="sideBtnImg"><router-link class="sideBtn" to="/pcclean"><li>PC Clean</li></router-link>
-          <img src="./assets/info.svg" class="sideBtnImg"><router-link class="sideBtn" to="/about"><li>About</li></router-link>
+          <router-link class="sideBtn" to="/"><img src="./assets/stats.svg" class="sideBtnImg"><li>PC Monitoring</li></router-link>
+          <router-link class="sideBtn" to="/pcstats"><img src="./assets/computer.svg" class="sideBtnImg"><li>PC Stats</li></router-link>
+          <router-link class="sideBtn" to="/pcclean"><img src="./assets/garbage-can.svg" class="sideBtnImg"><li>PC Clean</li></router-link>
+          <router-link class="sideBtn" to="/about"><img src="./assets/info.svg" class="sideBtnImg"><li>About</li></router-link>
         </ul>
       </div>
 
@@ -105,6 +105,7 @@ html, body{
   transition: 0.5s ease-out;
   cursor: pointer;
 }
+
 .btnStyle:hover{
   background: #377d7e;
   transform: scale(0.95);
@@ -244,7 +245,7 @@ li{
   transition: 0.1s;
 }
 
-.sideBtn:hover{
+#mySidebar a.router-link-exact-active {
   color: #48DEC8;
 }
 
