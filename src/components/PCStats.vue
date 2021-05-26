@@ -60,7 +60,7 @@ export default {
 
       mem.info()
       .then(info => {
-        this.totalRam = Math.round(info.totalMemMb / 1000)
+        this.totalRam = Math.floor(info.totalMemMb / 1000)
         //console.log(Math.round(info.totalMemMb / 1000))
       })
     }
