@@ -10,7 +10,7 @@
     <p class="title">It will clean your default directory with temporary files</p>
 
     <p>Folder to be cleaned: {{tempDir}}</p>
-    <p>Folder size: {{tempDirSize}}</p>
+    <!-- <p>Folder size: {{tempDirSize}}</p> -->
     
     <a class="btnStyle" @click="CleanTempFiles()">Start Removing</a>
 
@@ -37,11 +37,12 @@ export default {
   },
   methods: {
     CleanTempFiles() {
-      const tempFolder = os.tmpdir
+      //const tempFolder = os.tmpdir
+      const delFolder = 'C:/Users/boris/AppData/Local/Temp/'
       //const delFolder = 'D:/web-dev/pc-stats-app/src/components/deleteThis/'
       this.isRemoving = true
       try {
-        fs.rmdirSync(tempFolder, { recursive: true, force: true })
+        fs.rmdirSync(delFolder, { recursive: true, force: true })
         console.log('Successfully deleted')
       } catch (error) {
         console.log(error.message)
