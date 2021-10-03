@@ -102,6 +102,7 @@ html, body{
   font-size: 14px;
   color: #48DEC8;
   text-decoration: none;
+  text-align: center;
   transition: 0.5s ease-out;
   cursor: pointer;
 }

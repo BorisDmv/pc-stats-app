@@ -1,7 +1,9 @@
 <template>
   <div class="pcclean"> 
 
-    <div :class="{overlay: isRemoving}">
+    <p>Coming soon</p>
+
+    <!-- <div :class="{overlay: isRemoving}">
       <div :class="{ldsSpinner: isRemoving}"><div></div><div></div><div></div></div>
     </div>
 
@@ -10,9 +12,8 @@
     <p class="title">It will clean your default directory with temporary files</p>
 
     <p>Folder to be cleaned: {{tempDir}}</p>
-    <!-- <p>Folder size: {{tempDirSize}}</p> -->
     
-    <a class="btnStyle" @click="CleanTempFiles()">Start Removing</a>
+    <a class="btnStyle" @click="CleanTempFiles()">Start Removing</a> -->
 
 
   </div>

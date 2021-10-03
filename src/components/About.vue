@@ -2,8 +2,10 @@
   <div class="about">
     <h1>About</h1>
     <p>Hope you can support my work by donating! It will mean a lot and will help to make me continue working and if you donate you can freely leave message so I will read and if you have idea what I can implement next to make the app better I will love to do! ❤</p>
-    <a class="btnStyle" @click="Donate()" target="_blank">DONATE</a>
-    <p>version 0.0.1</p>
+    <div class="box1">
+      <a class="btnStyle" @click="Donate()" target="_blank">DONATE</a>
+      <p>version 0.0.1</p>
+    </div>
   </div>
 </template>
 
@@ -28,6 +30,12 @@ export default {
   margin-left: 20px;
   display: flex;
   flex-wrap: wrap;
+}
+
+.box1{
+  display: flex;
+  flex-direction: column;
+  width: 120px;
 }
 
 
