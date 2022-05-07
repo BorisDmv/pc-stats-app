@@ -1,5 +1,7 @@
 # electron-app with vuejs integration using vuelectro
 
+![alt text](https://i.imgur.com/zHgXG4f.png)
+
 ## Dependencies List
 Using vuejs cli
 ```
